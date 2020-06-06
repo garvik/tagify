@@ -1,0 +1,21 @@
+{
+  "name": "tagify",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"yarn run start:server\" \"yarn run start:client\"",
+    "start:client": "yarn --cwd ./client run start",
+    "start:server": "yarn --cwd ./server run start",
+    "format": "prettier --write **/*.js **/*.ts **/*.tsx **/*.html **/*.json **/*.css **/*.scss"
+  },
+  "devDependencies": {
+    "concurrently": "5.2.0",
+    "cross-env": "7.0.2",
+    "nodemon": "2.0.4",
+    "prettier": "2.0.5"
+  },
+  "workspaces": [
+    "client",
+    "server"
+  ]
+}
