@@ -1,5 +1,13 @@
 {
   "compilerOptions": {
-    "sourceMap": true
-  }
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["dom", "es6"],
+    "outDir": "build",
+    "rootDir": "src",
+    "removeComments": true,
+    "esModuleInterop": true
+  },
+  "exclude": ["node_modules"],
+  "include": ["src/**/*.ts"]
 }

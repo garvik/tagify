@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import { gql, useLazyQuery } from "@apollo/client";
+
+const GET_HELLO = gql`
+  query GetHello {
+    hello
+  }
+`;
 
 const App: React.FC = () => {
-  const [data, setData] = useState<any>(null);
-
-  const querySampleData = async () => {
-    const response = await fetch("/api");
-    const body = await response.json();
-    setData(body.message);
-  };
+  const [getHello, { data }] = useLazyQuery(GET_HELLO);
 
   return (
     <div className="App">
@@ -18,8 +19,10 @@ const App: React.FC = () => {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <button onClick={querySampleData}>Query sample data</button>
-        {data}
+        <button type="button" onClick={() => getHello()}>
+          Query sample data
+        </button>
+        {data?.hello}
       </header>
     </div>
   );
