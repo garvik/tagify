@@ -13,6 +13,9 @@ module.exports = {
     filename: "index.js",
     libraryTarget: "commonjs",
   },
+  resolve: {
+    extensions: [".mjs", ".js", ".ts"],
+  },
   module: {
     rules: [
       {

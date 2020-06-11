@@ -1,27 +1,25 @@
 import express from "express";
 import compression from "compression";
 import cors from "cors";
-import { ApolloServer, gql } from "apollo-server-express";
+import { ApolloServer } from "apollo-server-express";
+import { typeDefs } from "./schema";
+import { ImageAPI } from "./images/ImageAPI";
+import { resolvers } from "./resolvers";
 
-const { PORT = 8080 } = process.env;
-
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => "Hello world!",
-  },
-};
+const { PORT = 4000 } = process.env;
 
 const app = express();
 app.use(cors());
 app.use(compression());
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs: typeDefs,
+  resolvers: resolvers,
+  dataSources: () => ({
+    imageAPI: new ImageAPI(),
+  }),
+});
+
 server.applyMiddleware({ app, path: "/graphql" });
 
 app.listen(PORT, () => {
